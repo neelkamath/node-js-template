@@ -38,7 +38,7 @@
     "express": "4.17.2",
     "joi": "17.7.0",
     "morgan": "1.10.0",
-    "node-fetch": "2.5.0",
+    "node-fetch": "2.6.7",
     "prom-client": "14.1.0",
     "typedi": "0.10.0",
     "winston": "3.7.2",
