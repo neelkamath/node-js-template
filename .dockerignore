@@ -1,0 +1,8 @@
+*
+!prisma
+!src
+!package.json
+!tsconfig.json
+!yarn.lock
+!agent.yaml
+!docker/cmd.sh

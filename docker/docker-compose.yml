@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  api:
+    entrypoint: /dockerize -wait tcp://rabbitmq:5672 -wait tcp://postgres:5432 -timeout 30s
+    command: sh cmd.sh
+    build:
+      context: ..
+      dockerfile: api/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./dockerize
+        target: /dockerize
+        read_only: true
+    expose: [3000]
+    ports: ['3000:3000']
+    networks: [postgres, rabbitmq]
+    env_file: ../.env
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/postgres
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    profiles: [prod]
+  rabbitmq:
+    build: rabbitmq
+    restart: unless-stopped
+    expose: [5672, 15672]
+    ports: ['5672:5672', '15672:15672']
+    networks: [rabbitmq]
+    profiles: [dev, prod]
+  postgres:
+    image: postgres:14.4
+    restart: unless-stopped
+    expose: [5433]
+    ports: ['5433:5432'] # The user may have port 5432 allocated to a local Postgres instance.
+    networks: [postgres]
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+    profiles: [dev, prod]
+volumes:
+  postgres:
+networks:
+  postgres:
+  rabbitmq:

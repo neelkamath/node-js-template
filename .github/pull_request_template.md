@@ -1,0 +1,8 @@
+- [ ] I have updated the architecture docs if necessary.
+- [ ] I have updated the OpenAPI spec if necessary.
+- [ ] I have used the logger if necessary.
+- [ ] I have set up tracing if required.
+- [ ] I have set up metrics if necessary.
+- [ ] I have updated the unit tests if necessary.
+- [ ] I have updated the integration tests if necessary.
+- [ ] I have updated the changelog if necessary.

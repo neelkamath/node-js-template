@@ -1,0 +1,45 @@
+# Name `operationId`s using the format <<HTTP_METHOD><PATH>> (e.g., <getTxId> for HTTP GET /tx/{id}).
+openapi: 3.1.0
+info:
+  version: 0.1.0
+  description: The REST API for _Node.js Template_.
+  title: Node.js Template
+  contact:
+    name: Neel Kamath
+    url: https://github.com/neelkamath/node-js-template
+    email: me@neelkamath.com
+servers:
+  - url: http://localhost:3000
+    description: Default URL if you're running the server locally.
+tags:
+  - name: status
+  - name: reset
+paths:
+  /health:
+    get:
+      tags: [status]
+      summary: Backend health
+      description: Check if all systems are operational.
+      operationId: getHealth
+      responses:
+        '200':
+          $ref: '#/components/responses/Health'
+components:
+  schemas:
+    Health:
+      type: object
+      properties:
+        postgres:
+          description: Whether the database is up.
+          type: boolean
+        rabbitMq:
+          description: Whether the message broker, RabbitMQ, is up.
+          type: boolean
+      required: [isPostgresUp, isRabbitMqUp]
+  responses:
+    Health:
+      description: The status of each system.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Health'
