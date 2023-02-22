@@ -5,6 +5,8 @@ import { RabbitMqConnection } from '../../../src/rabbitmq/connection';
 import { ProcessEnvVars } from '../../../src/env-vars';
 import app from '../../../src/app';
 
+afterEach(() => Container.reset());
+
 describe('HTTP GET /health', () => {
   const setUpUnhealthyTest = () => {
     class MockProcessEnvVars {
